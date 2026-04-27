@@ -7,7 +7,27 @@
       "Bash(curl -s -o /dev/null -w \"img:  %{http_code}\\\\n\" http://localhost:4321/assets/carter-portrait.jpg)",
       "Bash(curl -s http://localhost:4321/)",
       "Bash(git init *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(gh auth *)",
+      "Bash(brew install *)",
+      "Bash(command -v brew)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(command -v port)",
+      "Bash(command -v npm)",
+      "Bash(mkdir -p ~/bin)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -sL \"https://github.com/cli/cli/releases/latest/download/gh_2.65.0_macOS_arm64.zip\" -o gh.zip)",
+      "Bash(curl -s \"https://api.github.com/repos/cli/cli/releases/latest\")",
+      "Bash(rm -f gh.zip)",
+      "Bash(curl -sL \"https://github.com/cli/cli/releases/download/v2.91.0/gh_2.91.0_macOS_arm64.zip\" -o gh.zip)",
+      "Bash(unzip -q -o gh.zip)",
+      "Bash(cp gh_2.91.0_macOS_arm64/bin/gh ~/bin/gh)",
+      "Bash(chmod +x ~/bin/gh)",
+      "Bash(~/bin/gh auth *)",
+      "Bash(git commit -m 'Update Calendly link to real URL *)"
     ]
   }
 }
