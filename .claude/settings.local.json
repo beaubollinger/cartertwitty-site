@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"html: %{http_code}\\\\n\" http://localhost:4321/)",
+      "Bash(curl -s -o /dev/null -w \"img:  %{http_code}\\\\n\" http://localhost:4321/assets/carter-portrait.jpg)",
+      "Bash(curl -s http://localhost:4321/)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}

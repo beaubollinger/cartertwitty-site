@@ -1,0 +1,32 @@
+---
+const yes = [
+  "You're high-functioning on the outside but know something deeper isn't working.",
+  "You're willing to be honest — really honest — about where you actually are.",
+  "You want support from someone who's lived through the dark part, not just studied it.",
+  "You're ready to do the work on the structure underneath, not just the surface.",
+];
+const no = [
+  'You want a workout plan with no self-examination.',
+  "You're looking for a quick fix or a 30-day transformation.",
+  "You're not ready to look at the patterns you've been avoiding.",
+  'You want someone to tell you what to do without asking why.',
+];
+---
+<section class="fit" id="fit">
+  <div class="container">
+    <div class="eyebrow reveal">Is This for You?</div>
+    <h2 class="section-heading reveal reveal-delay-1">
+      Built for a specific kind of person.
+    </h2>
+    <div class="fit-columns">
+      <div class="fit-col yes reveal reveal-delay-2">
+        <h3>This is for you if —</h3>
+        <ul>{yes.map((t) => <li>{t}</li>)}</ul>
+      </div>
+      <div class="fit-col no reveal reveal-delay-3">
+        <h3>This is not for you if —</h3>
+        <ul>{no.map((t) => <li>{t}</li>)}</ul>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,113 @@
+---
+const bookingUrl = 'https://calendly.com/cartertwitty/discovery';
+---
+<section class="hero" id="top">
+  <!-- SPLIT -->
+  <div class="hero-variant" data-hero-variant="split">
+    <div class="hero-grid-lines" style="transform: translateY(var(--hero-parallax, 0))"></div>
+    <div class="hero-split">
+      <div style="transform: translateY(calc(var(--hero-parallax, 0) * 0.5))">
+        <div class="hero-label reveal visible">Integrated 1:1 Mentorship · 9 Weeks</div>
+        <h1 class="reveal visible reveal-delay-1">
+          Practice the <em>how</em> of doing everything in your life <em>with quality.</em>
+        </h1>
+        <p class="hero-sub reveal visible reveal-delay-2">
+          A mentorship for people performing at a high level in the places others can see —
+          while quietly coming apart in the places they can't.
+        </p>
+        <div class="hero-cta-row reveal visible reveal-delay-3">
+          <a href={bookingUrl} target="_blank" rel="noreferrer" class="btn-primary">
+            Apply for Mentorship <span class="arrow">→</span>
+          </a>
+          <a href="#story" class="btn-ghost">
+            Read the origin <span class="arrow">↓</span>
+          </a>
+        </div>
+        <div class="hero-meta reveal visible reveal-delay-4">
+          <div class="hero-meta-item"><span class="hero-meta-dot"></span> Application required</div>
+          <div class="hero-meta-item"><span class="hero-meta-dot"></span> Limited spots</div>
+          <div class="hero-meta-item"><span class="hero-meta-dot"></span> Now enrolling</div>
+        </div>
+      </div>
+      <div
+        class="hero-portrait hero-portrait--photo reveal visible reveal-delay-2"
+        style="transform: translateY(calc(var(--hero-parallax, 0) * 0.25))"
+      >
+        <img src="/assets/carter-portrait.jpg" alt="Carter Twitty" class="ph-img" />
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span>
+        <span class="ph-corner bl"></span><span class="ph-corner br"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTERED -->
+  <div class="hero-variant" data-hero-variant="centered">
+    <div class="hero-grid-lines"></div>
+    <div class="hero-centered">
+      <div class="hero-label reveal visible">Integrated 1:1 Mentorship · 9 Weeks</div>
+      <h1 class="reveal visible reveal-delay-1">
+        Practice the <em>how</em> of doing everything in your life <em>with quality.</em>
+      </h1>
+      <p class="hero-sub reveal visible reveal-delay-2">
+        A mentorship for people performing at a high level in the places others can see —
+        while quietly coming apart in the places they can't.
+      </p>
+      <div class="hero-cta-row reveal visible reveal-delay-3">
+        <a href={bookingUrl} target="_blank" rel="noreferrer" class="btn-primary">
+          Apply for Mentorship <span class="arrow">→</span>
+        </a>
+        <a href="#story" class="btn-ghost">Read the origin <span class="arrow">↓</span></a>
+      </div>
+      <div class="hero-meta reveal visible reveal-delay-4">
+        <div class="hero-meta-item"><span class="hero-meta-dot"></span> Application required</div>
+        <div class="hero-meta-item"><span class="hero-meta-dot"></span> Limited spots</div>
+        <div class="hero-meta-item"><span class="hero-meta-dot"></span> Now enrolling</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULLBLEED -->
+  <div class="hero-variant" data-hero-variant="fullbleed">
+    <div class="hero-fullbleed">
+      <div class="fb-stage">
+        <div>
+          <div class="hero-label reveal visible">Integrated 1:1 Mentorship</div>
+          <h1 class="reveal visible reveal-delay-1">
+            Practice the <em>how</em> of doing everything<br />in your life <em>with quality.</em>
+          </h1>
+        </div>
+        <div class="fb-bottom reveal visible reveal-delay-2">
+          <p class="hero-sub">
+            A mentorship for people performing at a high level in the places others can see —
+            while quietly coming apart in the places they can't.
+          </p>
+          <div class="hero-cta-row">
+            <a href={bookingUrl} target="_blank" rel="noreferrer" class="btn-primary">
+              Apply <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .hero-variant { display: none; }
+  body[data-hero='split'] .hero-variant[data-hero-variant='split'],
+  body[data-hero='centered'] .hero-variant[data-hero-variant='centered'],
+  body[data-hero='fullbleed'] .hero-variant[data-hero-variant='fullbleed'] {
+    display: block;
+  }
+</style>
+
+<script>
+  const hero = document.getElementById('top') as HTMLElement | null;
+  const onScroll = () => {
+    if (!hero) return;
+    const offset = Math.min(window.scrollY * 0.15, 60);
+    hero.style.setProperty('--hero-parallax', `-${offset}px`);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

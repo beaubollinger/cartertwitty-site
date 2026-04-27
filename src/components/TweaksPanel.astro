@@ -1,0 +1,194 @@
+---
+const accents = [
+  { name: 'Burnt Orange', value: '#E87534' },
+  { name: 'Clay', value: '#C9623C' },
+  { name: 'Ember', value: '#D4843E' },
+  { name: 'Sage', value: '#8FA78A' },
+  { name: 'Stone', value: '#A8A29E' },
+];
+const fonts = [
+  { label: 'Playfair', value: 'Playfair Display' },
+  { label: 'Fraunces', value: 'Fraunces' },
+  { label: 'Cormorant', value: 'Cormorant Garamond' },
+];
+const heroes = [
+  { label: 'Split', value: 'split' },
+  { label: 'Centered', value: 'centered' },
+  { label: 'Full-bleed', value: 'fullbleed' },
+];
+const motions = [
+  { label: 'Tasteful', value: 'tasteful' },
+  { label: 'Minimal', value: 'minimal' },
+];
+---
+<div class="tweaks-panel" id="tweaks-panel" hidden>
+  <div class="tweaks-header">
+    <span class="tweaks-title">Tweaks</span>
+    <button class="tweaks-close" id="tweaks-close" aria-label="Close tweaks">×</button>
+  </div>
+
+  <div class="tweak-group">
+    <label class="tweak-label">Accent</label>
+    <div class="tweak-swatches">
+      {accents.map((a) => (
+        <button
+          title={a.name}
+          class="tweak-swatch"
+          style={`background: ${a.value}`}
+          data-tweak-key="accent"
+          data-tweak-value={a.value}
+        ></button>
+      ))}
+    </div>
+  </div>
+
+  <div class="tweak-group">
+    <label class="tweak-label">Hero Layout</label>
+    <div class="tweak-options">
+      {heroes.map((h) => (
+        <button class="tweak-chip" data-tweak-key="heroVariant" data-tweak-value={h.value}>
+          {h.label}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="tweak-group">
+    <label class="tweak-label">Heading Font</label>
+    <div class="tweak-options">
+      {fonts.map((f) => (
+        <button class="tweak-chip" data-tweak-key="headingFont" data-tweak-value={f.value}>
+          {f.label}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="tweak-group">
+    <label class="tweak-label">Motion</label>
+    <div class="tweak-options">
+      {motions.map((m) => (
+        <button class="tweak-chip" data-tweak-key="motion" data-tweak-value={m.value}>
+          {m.label}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="tweak-group">
+    <div class="tweak-toggle">
+      <label class="tweak-label" style="margin-bottom: 0">Show Testimonials</label>
+      <button class="tweak-switch" id="tweak-testimonials" aria-label="Toggle testimonials"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  type Tweaks = {
+    accent: string;
+    headingFont: string;
+    heroVariant: 'split' | 'centered' | 'fullbleed';
+    motion: 'tasteful' | 'minimal';
+    showTestimonials: boolean;
+    bookingUrl: string;
+  };
+
+  const w = window as any;
+  const tweaks: Tweaks = { ...(w.TWEAK_DEFAULTS as Tweaks) };
+
+  const hexA = (hex: string, a: number) => {
+    const h = hex.replace('#', '');
+    const n = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+    const r = parseInt(n.slice(0, 2), 16);
+    const g = parseInt(n.slice(2, 4), 16);
+    const b = parseInt(n.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${a})`;
+  };
+
+  const apply = () => {
+    const root = document.documentElement;
+    root.style.setProperty('--accent', tweaks.accent);
+    root.style.setProperty('--accent-hover', tweaks.accent);
+    root.style.setProperty('--accent-soft', hexA(tweaks.accent, 0.12));
+    root.style.setProperty('--accent-line', hexA(tweaks.accent, 0.35));
+    root.style.setProperty('--heading-font', `'${tweaks.headingFont}', serif`);
+    document.body.classList.toggle('motion-minimal', tweaks.motion === 'minimal');
+    document.body.dataset.hero = tweaks.heroVariant;
+
+    const test = document.getElementById('testimonials');
+    if (test) test.style.display = tweaks.showTestimonials ? '' : 'none';
+
+    // Reflect active state on controls
+    document.querySelectorAll<HTMLButtonElement>('[data-tweak-key]').forEach((btn) => {
+      const k = btn.dataset.tweakKey as keyof Tweaks;
+      const v = btn.dataset.tweakValue;
+      btn.classList.toggle('active', String(tweaks[k]) === v);
+    });
+    const ts = document.getElementById('tweak-testimonials');
+    if (ts) ts.classList.toggle('on', tweaks.showTestimonials);
+
+    // Re-wire any newly-shown reveals
+    rewireReveals();
+  };
+
+  const setTweak = (k: keyof Tweaks, v: any) => {
+    (tweaks as any)[k] = v;
+    apply();
+    try {
+      window.parent.postMessage(
+        { type: '__edit_mode_set_keys', edits: { [k]: v } },
+        '*'
+      );
+    } catch (_) {}
+  };
+
+  document.querySelectorAll<HTMLButtonElement>('[data-tweak-key]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const k = btn.dataset.tweakKey as keyof Tweaks;
+      const v = btn.dataset.tweakValue as string;
+      setTweak(k, v);
+    });
+  });
+
+  document.getElementById('tweak-testimonials')?.addEventListener('click', () => {
+    setTweak('showTestimonials', !tweaks.showTestimonials);
+  });
+
+  const panel = document.getElementById('tweaks-panel');
+  document.getElementById('tweaks-close')?.addEventListener('click', () => {
+    if (panel) panel.hidden = true;
+  });
+
+  // Edit-mode protocol
+  window.addEventListener('message', (e) => {
+    const d = (e.data || {}) as { type?: string };
+    if (d.type === '__activate_edit_mode' && panel) panel.hidden = false;
+    if (d.type === '__deactivate_edit_mode' && panel) panel.hidden = true;
+  });
+  try {
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+  } catch (_) {}
+
+  // Reveal observer (single global)
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+  function rewireReveals() {
+    document.querySelectorAll('.reveal:not(.visible):not(.observed)').forEach((el) => {
+      el.classList.add('observed');
+      io.observe(el);
+    });
+  }
+
+  apply();
+  rewireReveals();
+  setTimeout(rewireReveals, 120);
+</script>

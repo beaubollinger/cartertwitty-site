@@ -1,0 +1,22 @@
+---
+const items = [
+  "You're disciplined in the areas people can see — but privately struggling with the ones they can't.",
+  "You've tried to think or push your way through it, but the pattern keeps repeating.",
+  "You're living at a fraction of your actual capacity — not from lack of effort, but from lack of the right support.",
+  "You know information isn't the problem — you've read the books, done the research, tried the protocols.",
+  "You're looking for someone who's actually been through it, not someone who only studied it.",
+];
+---
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="eyebrow reveal">Sound Familiar?</div>
+    <h2 class="section-heading reveal reveal-delay-1">
+      You know something is off —<br />you just can't fix it alone.
+    </h2>
+    <ul class="problem-list">
+      {items.map((t, i) => (
+        <li class={`reveal reveal-delay-${Math.min(i + 1, 4)}`}>{t}</li>
+      ))}
+    </ul>
+  </div>
+</section>

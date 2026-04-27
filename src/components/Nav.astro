@@ -1,0 +1,47 @@
+---
+const bookingUrl = 'https://calendly.com/cartertwitty/discovery';
+const links = [
+  { id: 'story', label: 'Origin' },
+  { id: 'program', label: 'The Foundation' },
+  { id: 'fit', label: 'Is This You' },
+];
+---
+<nav class="nav" id="site-nav">
+  <div class="nav-left">
+    <span class="nav-mark">c</span>
+    <span class="nav-name">Carter <em>Twitty</em></span>
+  </div>
+  <div class="nav-links">
+    {links.map((l) => (
+      <a href={`#${l.id}`} class="nav-link" data-nav-id={l.id}>{l.label}</a>
+    ))}
+  </div>
+  <a href={bookingUrl} target="_blank" rel="noreferrer" class="nav-cta">
+    Apply <span class="arrow">→</span>
+  </a>
+</nav>
+
+<script>
+  const nav = document.getElementById('site-nav');
+  const ids = ['top', 'story', 'program', 'fit', 'apply'];
+
+  const onScroll = () => {
+    if (!nav) return;
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+
+    const y = window.scrollY + 140;
+    let cur = ids[0];
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= y) cur = id;
+    }
+    document.querySelectorAll<HTMLAnchorElement>('.nav-link').forEach((a) => {
+      a.classList.toggle('active', a.dataset.navId === cur);
+    });
+  };
+
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+</script>

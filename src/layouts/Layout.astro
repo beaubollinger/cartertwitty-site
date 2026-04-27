@@ -1,0 +1,47 @@
+---
+import '../styles/carter.css';
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Carter Twitty — Integrated 1:1 Mentorship</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script is:inline>
+      // Persist scroll position in localStorage
+      window.addEventListener('load', () => {
+        const y = parseInt(localStorage.getItem('carter_scroll') || '0', 10);
+        if (y > 0) window.scrollTo(0, y);
+      });
+      window.addEventListener(
+        'scroll',
+        () => {
+          localStorage.setItem('carter_scroll', String(window.scrollY));
+        },
+        { passive: true }
+      );
+    </script>
+
+    <script is:inline>
+      const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/ {
+        accent: '#D4843E',
+        headingFont: 'Playfair Display',
+        heroVariant: 'split',
+        motion: 'tasteful',
+        showTestimonials: true,
+        bookingUrl: 'https://calendly.com/cartertwitty/discovery',
+      } /*EDITMODE-END*/;
+      window.TWEAK_DEFAULTS = TWEAK_DEFAULTS;
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

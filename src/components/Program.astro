@@ -1,0 +1,61 @@
+---
+const cards = [
+  {
+    t: 'Movement Practice',
+    d: 'Custom programming that goes beyond exercise. Movement is the entry point — the place where you learn to pay attention, show up honestly, and build something that is actually yours.',
+  },
+  {
+    t: '1:1 Mentorship',
+    d: 'Real dialogue, not check-ins. We work on what is actually going on — in your practice, your habits, your life. The kind of honest conversation that only happens with someone who has been through it.',
+  },
+  {
+    t: 'The Structure Underneath',
+    d: 'Philosophy, self-study, and the hard work of examining the patterns that keep you stuck. Not theory — practical tools for rebuilding how you show up in every area of your life.',
+  },
+  {
+    t: 'Sustained Support',
+    d: 'Direct access to me between sessions. What saved me was people who stayed. That is what I offer — I am in it with you, not watching from the sidelines.',
+  },
+];
+
+const meta: { v: string; em?: boolean; l: string }[] = [
+  { v: '9', l: 'Weeks' },
+  { v: '1:1', l: 'Mentorship' },
+  { v: 'Custom', em: true, l: 'Programming' },
+  { v: 'Direct', em: true, l: 'Access' },
+];
+---
+<section class="program" id="program">
+  <div class="container-wide">
+    <div class="eyebrow reveal">The Foundation</div>
+    <h2 class="section-heading reveal reveal-delay-1">
+      9 weeks to practice the <em>how</em><br />of doing everything with quality.
+    </h2>
+    <p class="program-lede reveal reveal-delay-2">
+      This isn't a fitness program or a self-help protocol. It's a structured mentorship that
+      uses movement as the entry point — then works on the structure underneath. How you show up
+      physically, in your relationships, and for yourself. We rebuild the pattern, together.
+    </p>
+
+    <div class="program-grid">
+      {cards.map((c, i) => (
+        <div class="program-card reveal" style={`transition-delay: ${i * 0.08}s`}>
+          <span class="pc-index">
+            {String(i + 1).padStart(2, '0')} / {String(cards.length).padStart(2, '0')}
+          </span>
+          <h3>{c.t}</h3>
+          <p>{c.d}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="program-meta">
+      {meta.map((m, i) => (
+        <div class="meta-item reveal" style={`transition-delay: ${i * 0.06}s`}>
+          <span class="meta-value">{m.em ? <em>{m.v}</em> : m.v}</span>
+          <span class="meta-label">{m.l}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
