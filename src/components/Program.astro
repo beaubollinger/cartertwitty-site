@@ -40,9 +40,6 @@ const meta: { v: string; em?: boolean; l: string }[] = [
     <div class="program-grid">
       {cards.map((c, i) => (
         <div class="program-card reveal" style={`transition-delay: ${i * 0.08}s`}>
-          <span class="pc-index">
-            {String(i + 1).padStart(2, '0')} / {String(cards.length).padStart(2, '0')}
-          </span>
           <h3>{c.t}</h3>
           <p>{c.d}</p>
         </div>

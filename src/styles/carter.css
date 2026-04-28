@@ -598,31 +598,27 @@ body.motion-minimal .reveal { opacity: 1; transform: none; transition: none; }
 .problem-list {
   list-style: none;
   margin-top: 2.5rem;
-  counter-reset: p-counter;
 }
 .problem-list li {
   font-size: 1.05rem;
   color: var(--text-dim);
-  padding: 1.5rem 0 1.5rem 4rem;
+  padding: 1.5rem 0 1.5rem 1.75rem;
   position: relative;
   border-bottom: 1px solid var(--divider);
   font-weight: 300;
   line-height: 1.6;
-  counter-increment: p-counter;
   transition: color 0.3s ease, padding-left 0.3s ease;
 }
 .problem-list li:last-child { border-bottom: none; }
 .problem-list li::before {
-  content: counter(p-counter, decimal-leading-zero);
+  content: '';
   position: absolute;
   left: 0;
-  top: 1.55rem;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  color: var(--accent);
-  letter-spacing: 0.05em;
+  top: 2.05rem;
+  width: 10px; height: 1px;
+  background: var(--accent);
 }
-.problem-list li:hover { color: var(--text); padding-left: 4.5rem; }
+.problem-list li:hover { color: var(--text); padding-left: 2.25rem; }
 
 /* ─────────────── PROGRAM ─────────────── */
 .program { background: var(--bg-0); }
