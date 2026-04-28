@@ -1,101 +1,25 @@
 ---
-const slides = [
-  {
-    q: "I came in thinking I needed a better training program. What I got was someone who could actually see what I was doing — and not doing. Nine weeks later I'm not just moving better. I'm showing up differently everywhere.",
-    name: 'M. — Client',
-    role: 'Founder · 9-week cohort',
-    initial: 'M',
-  },
-  {
-    q: "Carter doesn't let you hide. He also doesn't shame you for the places you've been hiding. That combination is rare, and it's the whole reason the work actually moved me.",
-    name: 'J. — Client',
-    role: 'Writer · 9-week cohort',
-    initial: 'J',
-  },
-  {
-    q: "The movement piece was just the doorway. What I really needed was someone who'd been through the dark part and could name what I was carrying. That's what I found here.",
-    name: 'S. — Client',
-    role: 'Operator · 9-week cohort',
-    initial: 'S',
-  },
-];
 ---
 <section class="testimonials" id="testimonials">
   <div class="container-wide">
-    <div class="eyebrow reveal">
-      In Their Words
-      <span class="t-placeholder-tag">Placeholder — pending real testimonials</span>
-    </div>
+    <div class="eyebrow reveal">In Their Words</div>
     <h2 class="section-heading reveal reveal-delay-1">
       What people say after<br />working through it together.
     </h2>
 
-    <div class="t-carousel reveal reveal-delay-2">
-      <div class="t-stage">
-        {slides.map((s, idx) => (
-          <div class={`t-slide ${idx === 0 ? 'active' : ''}`} data-slide-idx={idx}>
-            <p class="t-quote">{s.q}</p>
-            <div class="t-attrib">
-              <div class="t-avatar">{s.initial}</div>
-              <div>
-                <div class="t-name">{s.name}</div>
-                <div class="t-role">{s.role}</div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div class="t-controls">
-        <div class="t-dots">
-          {slides.map((_, idx) => (
-            <button
-              class={`t-dot ${idx === 0 ? 'active' : ''}`}
-              data-dot-idx={idx}
-              aria-label={`Go to testimonial ${idx + 1}`}
-            ></button>
-          ))}
-        </div>
-        <div class="t-nav">
-          <button class="t-arrow" data-t-prev aria-label="Previous">←</button>
-          <button class="t-arrow" data-t-next aria-label="Next">→</button>
+    <div class="t-single reveal reveal-delay-2">
+      <p class="t-quote">
+        If you're breathing, I'd send you to him. Carter meets you where you're at, and he gives
+        one hundred percent to helping you grow — he puts his heart and soul into this practice.
+        It's changed my life.
+      </p>
+      <div class="t-attrib">
+        <div class="t-avatar">R</div>
+        <div>
+          <div class="t-name">Ramez</div>
+          <div class="t-role">Client</div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  const slides = document.querySelectorAll<HTMLElement>('.t-slide');
-  const dots = document.querySelectorAll<HTMLButtonElement>('.t-dot');
-  const n = slides.length;
-  let i = 0;
-
-  const go = (next: number) => {
-    i = ((next % n) + n) % n;
-    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
-  };
-
-  dots.forEach((d) => {
-    d.addEventListener('click', () => {
-      const idx = parseInt(d.dataset.dotIdx || '0', 10);
-      go(idx);
-      reset();
-    });
-  });
-
-  document.querySelector('[data-t-next]')?.addEventListener('click', () => {
-    go(i + 1);
-    reset();
-  });
-  document.querySelector('[data-t-prev]')?.addEventListener('click', () => {
-    go(i - 1);
-    reset();
-  });
-
-  let timer = window.setInterval(() => go(i + 1), 7000);
-  const reset = () => {
-    clearInterval(timer);
-    timer = window.setInterval(() => go(i + 1), 7000);
-  };
-</script>

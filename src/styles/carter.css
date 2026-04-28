@@ -769,6 +769,7 @@ body.motion-minimal .reveal { opacity: 1; transform: none; transition: none; }
   margin-top: 3rem;
   position: relative;
 }
+.t-single { margin-top: 3rem; max-width: 820px; }
 .t-stage {
   position: relative;
   min-height: 280px;
